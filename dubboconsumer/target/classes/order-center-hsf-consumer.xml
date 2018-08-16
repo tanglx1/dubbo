@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="cusumer"/>
+    <!-- 使用zookeeper注册中心，注册或者消费服务 -->
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>
+
+    <!-- 扫描注解包路径，多个包用逗号分隔，不填package表示扫描当前ApplicationContext中的所有类
+    扫描指定包 @Reference(interfaceName="serviceInteface.Say")注解，自动注入提供方相应服务的对象-->
+
+    <dubbo:reference  interface="serviceInteface.ServiceTest" url="dubbo://127.0.0.1:20880" id="serviceTest" retries="0" check="false" timeout="30000" version="${spring.hsf.version}" />
+
+</beans>
